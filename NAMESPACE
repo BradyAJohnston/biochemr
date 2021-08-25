@@ -2,5 +2,7 @@
 
 export("%>%")
 export(b_dose_resp)
+export(b_enzyme_rate)
+export(b_params)
 export(fret)
 importFrom(magrittr,"%>%")

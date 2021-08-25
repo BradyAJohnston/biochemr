@@ -4,7 +4,13 @@
 \alias{b_dose_resp}
 \title{Fitting of a Dose Response Model}
 \usage{
-b_dose_resp(data, dose, response, ..., model = drc::LL.4())
+b_dose_resp(
+  data,
+  dose,
+  response,
+  ...,
+  model = drc::LL.4(names = c("slope", "min", "max", "ec50"))
+)
 }
 \arguments{
 \item{dose}{Column name for the dose data.}
