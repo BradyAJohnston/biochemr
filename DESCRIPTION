@@ -1,14 +1,31 @@
-Package: biochemr
 Type: Package
-Title: What the Package Does (Title Case)
-Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Package: biochemr
+Title: Tools For Analysis of Biochemistry Experiments
+Version: 0.1.0.9000
+Authors@R: 
+    c(person(given = "Brady",
+             family = "Johnston",
+             role = c("aut", "cre"),
+             email = "brady.johnston@me.com"))
+Maintainer: Brady Johnston <brady.johnston@me.com>
+Description: A set of tools and functions for accessible and reproducible
+    analysis of common biochemistry experiments. This package is intended
+    to be a one stop shop for leveraging the power of R and its rich
+    ecosystem of packages for analysis of results from wet-lab
+    biochemistry experiments.
 License: What license is it under?
+URL: https://github.com/BradyAJohnston/biochemr
+BugReports: https://github.com/BradyAJohnston/biochemr/issues
+Imports: 
+    dplyr,
+    drc,
+    ggplot2,
+    magrittr,
+    modelr,
+    purrr,
+    tidyr
+Suggests: 
+    tidyverse
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.1
-URL: https://github.com/BradyAJohnston/biochemr
-BugReports: https://github.com/BradyAJohnston/biochemr/issues

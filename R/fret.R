@@ -1,9 +1,10 @@
 #' Calculate fret.
 #'
+#' A
 #' @param donor Donor fluorescent intensity.
 #' @param acceptor Acceptor fluorescent intensity.
 #'
-#' @return
+#' @return Vector of calculated fret intensities.
 #' @export
 #'
 #' @examples

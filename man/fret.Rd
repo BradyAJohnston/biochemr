@@ -12,8 +12,8 @@ fret(donor, acceptor)
 \item{acceptor}{Acceptor fluorescent intensity.}
 }
 \value{
-
+Vector of calculated fret intensities.
 }
 \description{
-Calculate fret.
+A
 }
