@@ -4,7 +4,7 @@
 \alias{fret}
 \title{Calculate fret.}
 \usage{
-fret(donor, acceptor)
+fret(donor, transfer)
 }
 \arguments{
 \item{donor}{Donor fluorescent intensity.}

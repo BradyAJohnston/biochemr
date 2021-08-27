@@ -8,6 +8,6 @@
 #' @export
 #'
 #' @examples
-fret <- function(donor, acceptor) {
-  donor / (donor + acceptor)
+fret <- function(donor, transfer) {
+  transfer / (donor + transfer)
 }

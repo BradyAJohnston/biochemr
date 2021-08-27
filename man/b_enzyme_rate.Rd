@@ -23,6 +23,6 @@ b_enzyme_rate(conc, rate, ..., model = drc::MM.2(names = c("Vmax", "Km")))
 Fit Michaelis Menton Curve
 }
 \examples{
-df <- Puromycin \%>\%
-  b_dose_resp(conc, rate, state, model = drc::MM.2(names = c("Vmax", "Km")))
+Puromycin \%>\%
+  b_dose_resp(conc, rate, state)
 }
