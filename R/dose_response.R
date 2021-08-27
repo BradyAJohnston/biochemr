@@ -29,10 +29,19 @@ b_dose_resp <-
     data$r <- data[[r]]
 
   drm.func <- function(x) {
-    drc::drm(r ~ d,
-             fct = model,
-             data = x
-    )
+    model <- tryCatch({
+      drc::drm(r ~ d,
+               fct = model,
+               data = x
+      )
+    },
+    error = function(cond) {
+      message("Failed to fit model")
+      return(NA)
+    })
+
+    model
+
   }
 
   # dataframe for predictions
@@ -52,6 +61,8 @@ b_dose_resp <-
   )))
 
   predict.fun <- function(x) {
+    if(is.na(x)) return(NA)
+
     cbind(
       modelr::add_predictions(preddf, x),
       dplyr::as_tibble(predict(x, newdata = preddf, interval = "confidence"))
@@ -59,11 +70,13 @@ b_dose_resp <-
   }
 
   resid.fun <- function(x, y) {
+    if(is.na(y)) return(NA)
     modelr::add_residuals(as.data.frame(x), model = y) %>%
       dplyr::as_tibble()
   }
 
   coefs.fun <- function(x) {
+    if(is.na(x)) return(NA)
     coef(x) %>%
       dplyr::tibble(parameter = names(.), value = .) # instead of tidy()
   }
