@@ -4,9 +4,18 @@
 \alias{b_enzyme_rate}
 \title{Fit Michaelis Menton Curve}
 \usage{
-b_enzyme_rate(conc, rate, ..., model = drc::MM.2(names = c("Vmax", "Km")))
+b_enzyme_rate(
+  data,
+  conc,
+  rate,
+  ...,
+  model = drc::MM.2(names = c("Vmax", "Km"))
+)
 }
 \arguments{
+\item{data}{Data frame with columns for concentration, reaction rate and
+optionally grouping information.}
+
 \item{conc}{column with concentration data.}
 
 \item{rate}{Column with reaction rate data.}
@@ -21,8 +30,4 @@ b_enzyme_rate(conc, rate, ..., model = drc::MM.2(names = c("Vmax", "Km")))
 }
 \description{
 Fit Michaelis Menton Curve
-}
-\examples{
-Puromycin \%>\%
-  b_dose_resp(conc, rate, state)
 }

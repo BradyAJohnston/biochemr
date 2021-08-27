@@ -23,6 +23,7 @@ Imports:
     magrittr,
     modelr,
     purrr,
+    stringr,
     tidyr
 Suggests: 
     tidyverse

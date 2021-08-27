@@ -9,7 +9,7 @@ fret(donor, transfer)
 \arguments{
 \item{donor}{Donor fluorescent intensity.}
 
-\item{acceptor}{Acceptor fluorescent intensity.}
+\item{transfer}{Transfer fluorescent intensity.}
 }
 \value{
 Vector of calculated fret intensities.

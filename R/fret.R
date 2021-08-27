@@ -2,7 +2,7 @@
 #'
 #' A
 #' @param donor Donor fluorescent intensity.
-#' @param acceptor Acceptor fluorescent intensity.
+#' @param transfer Transfer fluorescent intensity.
 #'
 #' @return Vector of calculated fret intensities.
 #' @export

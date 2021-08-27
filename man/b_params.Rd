@@ -15,7 +15,3 @@ tibble containing grouped variables and extracted parameters.
 \description{
 Extract Model Parameters to Columns
 }
-\examples{
-
-
-}

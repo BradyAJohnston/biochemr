@@ -5,13 +5,18 @@
 #' @return tibble containing grouped variables and extracted parameters.
 #' @export
 #'
-#' @examples
+#' @example
 #'
+#' # Fitting MM models to the enzymatic data, pull out the relevant information.
+#' Puromycin %>%
+#'  b_enzyme_rate(conc, rate, state) %>%
+#'  b_params()
 #'
 b_params <- function(data) {
   data %>%
-    unnest(coefs) %>%
-    mutate(parameter = str_remove_all(parameter, ":\\(Intercept\\)")) %>%
-    select(parameter, value) %>%
-    pivot_wider(names_from = parameter, values_from = value)
+    tidyr::unnest(coefs) %>%
+    dplyr::mutate(parameter = stringr::str_remove_all(parameter, ":\\(Intercept\\)")) %>%
+    dplyr::select(parameter, value) %>%
+    tidyr::pivot_wider(names_from = parameter, values_from = value)
+
 }

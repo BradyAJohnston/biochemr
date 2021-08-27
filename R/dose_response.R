@@ -65,7 +65,7 @@ b_dose_resp <-
 
     cbind(
       modelr::add_predictions(preddf, x),
-      dplyr::as_tibble(predict(x, newdata = preddf, interval = "confidence"))
+      dplyr::as_tibble(stats::predict(x, newdata = preddf, interval = "confidence"))
     )
   }
 
@@ -77,7 +77,7 @@ b_dose_resp <-
 
   coefs.fun <- function(x) {
     if(is.na(x)) return(NA)
-    coef(x) %>%
+    stats::coef(x) %>%
       dplyr::tibble(parameter = names(.), value = .) # instead of tidy()
   }
 
