@@ -14,9 +14,19 @@
 #'
 b_params <- function(data) {
   data %>%
+    # unnest the coefficients nested lists
     tidyr::unnest(coefs) %>%
+
+    # remove the "intercept" etc that was included from the (drc) package
     dplyr::mutate(parameter = stringr::str_remove_all(parameter, ":\\(Intercept\\)")) %>%
-    dplyr::select(parameter, value) %>%
+
+    # select quietly, ignore the message saying grouping column also selected
+    purrr::quietly(dplyr::select)(parameter, value) %>%
+
+    # get the result of purrr::quietly
+    .[[1]] %>%
+
+    # pivot the values wider for a more human-readable table
     tidyr::pivot_wider(names_from = parameter, values_from = value)
 
 }

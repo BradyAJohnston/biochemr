@@ -1,6 +1,6 @@
 Type: Package
 Package: biochemr
-Title: Tools For Analysis of Biochemistry Experiments
+Title: Tools For User-Friendly & Reproducible Analysis of Biochemistry Experiments
 Version: 0.1.0.9000
 Authors@R: 
     c(person(given = "Brady",

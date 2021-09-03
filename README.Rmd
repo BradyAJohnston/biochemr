@@ -64,11 +64,15 @@ The result is a tibble (like a data.frame) that has a row for each sample and a 
 
 To extract relevant coefficients, use `b_params()`.
 ```{r}
-df %>% b_params()
+df %>% 
+  b_params()
 ```
 
-To plot plot the data quickly, use 
+Make a nice looking table of the results.
 ```{r}
+df %>% 
+  b_params() %>% 
+  knitr::kable()
 ```
 
 
