@@ -19,15 +19,15 @@ b_dose_resp(
 
 \item{...}{Columns by which to group the data before fitting models.}
 
-\item{model}{Model function from `{drc}` to be fit to the data. Defaults to
-`drc::LL.4()` for the `b_dose_resp()` function.}
+\item{model}{Model function from \code{{drc}} to be fit to the data. Defaults to
+\code{drc::LL.4()} for the \code{b_dose_resp()} function.}
 
 \item{.data}{Data frame contain columns for dose, response and if required
 grouping variables.}
 }
 \value{
-A `tibble()` with list-columns containing the data, the predictions,
-  the residuals and the coefficients of the model.
+A \code{tibble()} with list-columns containing the data, the predictions,
+the residuals and the coefficients of the model.
 }
 \description{
 Fitting of a Dose Response Model

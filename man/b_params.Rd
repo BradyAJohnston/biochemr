@@ -7,7 +7,7 @@
 b_params(data)
 }
 \arguments{
-\item{data}{Tibble containing a `coefs` column resulting from a model fit.}
+\item{data}{Tibble containing a \code{coefs} column resulting from a model fit.}
 }
 \value{
 tibble containing grouped variables and extracted parameters.

@@ -22,11 +22,11 @@ optionally grouping information.}
 
 \item{...}{Columns with grouping data.}
 
-\item{model}{Model to fit defaults to `drc::MM.2()`}
+\item{model}{Model to fit defaults to \code{drc::MM.2()}}
 }
 \value{
-`tibble` with nested list columns of data, model, predictions,
- residuals and coefficients.
+\code{tibble} with nested list columns of data, model, predictions,
+residuals and coefficients.
 }
 \description{
 Fit Michaelis Menton Curve
