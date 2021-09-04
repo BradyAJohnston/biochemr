@@ -29,32 +29,9 @@ b_dose_resp <-
     data$r <- data[[r]]
 
   drm.func <- function(x) {
-
-    fitfun <- function() {
       drc::drm(r ~ d,
                fct = model,
-               data = x
-      )
-    }
-
-    purrr::possibly(
-      .f = fitfun,
-      otherwise = NA
-    )
-
-    # model <- tryCatch({
-    #   drc::drm(r ~ d,
-    #            fct = model,
-    #            data = x
-    #   )
-    # },
-    # error = function(cond) {
-    #   message("Failed to fit model")
-    #   return(NA)
-    # })
-    #
-    # model
-
+               data = x)
   }
 
   # dataframe for predictions
@@ -99,7 +76,7 @@ b_dose_resp <-
     dplyr::group_by(...) %>%
     tidyr::nest() %>%
     purrr::quietly(dplyr::mutate)(
-      drmod = purrr::map(data, drm.func),
+      drmod = purrr::map(data, purrr::possibly(drm.func, NA)),
       resid = purrr::map2(data, drmod, resid.fun),
       pred = purrr::map(drmod, predict.fun),
       coefs = purrr::map(drmod, coefs.fun)
