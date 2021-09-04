@@ -29,18 +29,31 @@ b_dose_resp <-
     data$r <- data[[r]]
 
   drm.func <- function(x) {
-    model <- tryCatch({
+
+    fitfun <- function() {
       drc::drm(r ~ d,
                fct = model,
                data = x
       )
-    },
-    error = function(cond) {
-      message("Failed to fit model")
-      return(NA)
-    })
+    }
 
-    model
+    purrr::possibly(
+      .f = fitfun,
+      otherwise = NA
+    )
+
+    # model <- tryCatch({
+    #   drc::drm(r ~ d,
+    #            fct = model,
+    #            data = x
+    #   )
+    # },
+    # error = function(cond) {
+    #   message("Failed to fit model")
+    #   return(NA)
+    # })
+    #
+    # model
 
   }
 

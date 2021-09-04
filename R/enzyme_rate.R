@@ -1,11 +1,17 @@
-#' Fit Michaelis Menton Curve
+#' Fit a Michaelis-Menton Curve to Enzymatic Data
 #'
-#' @param conc column with concentration data.
-#' @param rate Column with reaction rate data.
-#' @param ... Columns with grouping data.
-#' @param model Model to fit defaults to `drc::MM.2()`
+#' This function fits a Michaelis-Menton model to the some dose-response data
+#' for enzymatic reactions. By default the minimum rate is locked to 0, if you
+#' wish to let the function find the minimum (if enzyme rate is > 0 at
+#' concentration 0) then supply the model `drc::MM.3(names = c("min", "Vmax",
+#' "km"))`.
+#'
 #' @param data Data frame with columns for concentration, reaction rate and
 #'   optionally grouping information.
+#' @param conc Column containing the concentration data.
+#' @param rate Column containing the enzyme rate data.
+#' @param ... (optional) Columns with grouping info, such as sample ID, treatment etc.
+#' @param model Model to fit defaults to `drc::MM.2()`
 #'
 #' @return `tibble` with nested list columns of data, model, predictions,
 #'  residuals and coefficients.
