@@ -18,7 +18,9 @@ b_params <- function(data) {
     tidyr::unnest(coefs) %>%
 
     # remove the "intercept" etc that was included from the (drc) package
-    dplyr::mutate(parameter = stringr::str_remove_all(parameter, ":\\(Intercept\\)")) %>%
+    dplyr::mutate(
+      parameter = stringr::str_remove_all(parameter, ":\\(Intercept\\)")
+      ) %>%
 
     # select quietly, ignore the message saying grouping column also selected
     purrr::quietly(dplyr::select)(parameter, value) %>%
