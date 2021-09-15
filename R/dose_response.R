@@ -80,7 +80,7 @@ b_dose_resp <-
 
         # use broom::augment to add residuals and other information from the fit
         # to the data column
-        data = purrr::map2(drmod, data, purrr::possibly(broom::augment, NA)),
+        data = purrr::map2(drmod, data, purrr::possibly(broom::augment, data)),
 
         # create column of values that make up the 'prediction' for plotting the
         # fitted curve
