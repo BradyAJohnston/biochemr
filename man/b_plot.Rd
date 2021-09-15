@@ -4,22 +4,22 @@
 \alias{b_plot}
 \title{Plot Data with Fitted  Models}
 \usage{
-b_plot(.data, ..., facet = TRUE)
+b_plot(data, ..., .facet = TRUE)
 }
 \arguments{
-\item{.data}{Data frame with nested columns of data, models and predictions.}
-
 \item{...}{Additional \code{ggplot2::aes()} parameters to be applied to the plot.}
 
-\item{facet}{Logical, whether to apply \code{ggplot2::facet_wrap()} based on the
+\item{.facet}{Logical, whether to apply \code{ggplot2::facet_wrap()} based on the
 currently used facetting variables.}
+
+\item{.data}{Data frame with nested columns of data, models and predictions.}
+
+\item{.annotate}{Logical, whether to automatically add labels to the plots
+containing the relevant coefficient information from the model.}
 }
 \value{
 \code{ggplot2::ggplot()} object.
 }
 \description{
 Plot Data with Fitted  Models
-}
-\examples{
-
 }

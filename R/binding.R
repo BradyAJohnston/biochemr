@@ -17,7 +17,9 @@
 #'   the residuals and the coefficients of the model.
 #' @export
 #'
-#' @example
+#' @examples
+#' Puromycin %>%
+#'   b_enzyme_rate(conc, rate, state)
 b_binding <-
   function(.data,
            .conc,

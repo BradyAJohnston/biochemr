@@ -30,3 +30,7 @@ Calculated binding affinities (Kd) from experimental data that contains dose
 and response information. Could be titrated concentration and resulting
 fluorescence, or percentage shift in a EMSA or something similar.
 }
+\examples{
+Puromycin \%>\%
+  b_enzyme_rate(conc, rate, state)
+}

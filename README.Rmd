@@ -96,4 +96,6 @@ Experimental analysis to be supported by `{biochemr}`:
 - [x] Ligand binding experiments for calculating `Kd`.
 - [x] Enzyme rate experiments for calculating `Vmax` and `Km`
 - [ ] qPCR Experimental Analysis
-- [ ] Replotting of FPLC / HPLC Traces for _aesthetic_ and informative chromatograms.
+- [ ] Replotting of FPLC / HPLC Traces for _aesthetic_ and informative
+chromatograms.
+- [ ] Creating and estimating unkowns from standard curves.

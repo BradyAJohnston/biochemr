@@ -131,3 +131,4 @@ Experimental analysis to be supported by `{biochemr}`:
 -   [ ] qPCR Experimental Analysis
 -   [ ] Replotting of FPLC / HPLC Traces for *aesthetic* and informative
     chromatograms.
+-   [ ] Creating and estimating unkowns from standard curves.
