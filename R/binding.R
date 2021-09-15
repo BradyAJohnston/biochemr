@@ -4,28 +4,38 @@
 #' and response information. Could be titrated concentration and resulting
 #' fluorescence, or percentage shift in a EMSA or something similar.
 #'
-#' @param data data.frame or tibble containing dose response data.
-#' @param conc Column with the concentration information.
-#' @param resp Column containing the response information.
-#' @param ... Columns that contain the grouping information for different
-#'   samples.
-#' @param model Model to fit. Defaults to `drc::LL.4()` for log-logistic
-#'   dose-response model for binding.
-#'
+#' @param .data data.frame or tibble containing dose response data.
+#' @param .conc Column with the concentration information.
+#' @param .resp Column containing the response information.
+#' @param ... Columns that contain the grouping information for the different
+#'   samples in experiment (i.e. sample IDs, treatments etc).
+#' @param .slope For all 1:1 binding interactions, the slope for the log -
+#'   logistic curve should be 1. If the interaction has some cooperativity or it
+#'   is not a 1:1 binding interaction, then this value will change and should be
+#'   allowed to be free (set `slope = NA`).
 #' @return A `tibble()` with list-columns containing the data, the predictions,
 #'   the residuals and the coefficients of the model.
 #' @export
 #'
-#' @examples
+#' @example
 b_binding <-
-  function(data,
-           conc,
-           resp,
+  function(.data,
+           .conc,
+           .resp,
            ...,
-           model = drc::LL.4(names = c("slope", "min", "max", "kd"))) {
-    biochemr::b_dose_resp(data,
-                          dose = conc,
-                          response = resp,
-                          ... = ...,
-                          model = model)
+           .slope = 1) {
+    if (!is.numeric(.slope)) {
+      if (!is.na(.slope)) {
+        stop(
+          "Slope must be numeric (likely 1) or set to NA for the model to guess."
+        )
+      }
+    }
+
+    model <- drc::LL.4(
+      names = c("slope", "min", "max", "kd"),
+      fixed = c(.slope, NA, NA, NA)
+    )
+
+    b_dose_resp(.data, {{ .conc }}, {{ .resp }}, ..., .model = model)
   }

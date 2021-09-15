@@ -2,32 +2,41 @@
 % Please edit documentation in R/enzyme_rate.R
 \name{b_enzyme_rate}
 \alias{b_enzyme_rate}
-\title{Fit Michaelis Menton Curve}
+\title{Fit a Michaelis-Menton Curve to Enzymatic Data}
 \usage{
 b_enzyme_rate(
-  data,
-  conc,
-  rate,
+  .data,
+  .conc,
+  .rate,
   ...,
-  model = drc::MM.2(names = c("Vmax", "Km"))
+  .model = drc::MM.2(names = c("Vmax", "Km"))
 )
 }
 \arguments{
-\item{data}{Data frame with columns for concentration, reaction rate and
+\item{.data}{Data frame with columns for concentration, reaction rate and
 optionally grouping information.}
 
-\item{conc}{column with concentration data.}
+\item{.conc}{Column containing the concentration data.}
 
-\item{rate}{Column with reaction rate data.}
+\item{.rate}{Column containing the enzyme rate data.}
 
-\item{...}{Columns with grouping data.}
+\item{...}{(optional) Columns with grouping info, such as sample ID, treatment etc.}
 
-\item{model}{Model to fit defaults to \code{drc::MM.2()}}
+\item{.model}{Model to fit defaults to \code{drc::MM.2()}}
 }
 \value{
 \code{tibble} with nested list columns of data, model, predictions,
 residuals and coefficients.
 }
 \description{
-Fit Michaelis Menton Curve
+This function fits a Michaelis-Menton model to the some dose-response data
+for enzymatic reactions. By default the minimum rate is locked to 0, if you
+wish to let the function find the minimum (if enzyme rate is > 0 at
+concentration 0) then supply the model \code{drc::MM.3(names = c("min", "Vmax", "km"))}.
+}
+\examples{
+# Fitting MM curves to the enzymatic data inside of datasets::Puromycin
+Puromycin \%>\%
+ b_enzyme_rate(conc, rate, state)
+
 }

@@ -6,31 +6,33 @@
 #' concentration 0) then supply the model `drc::MM.3(names = c("min", "Vmax",
 #' "km"))`.
 #'
-#' @param data Data frame with columns for concentration, reaction rate and
+#' @param .data Data frame with columns for concentration, reaction rate and
 #'   optionally grouping information.
-#' @param conc Column containing the concentration data.
-#' @param rate Column containing the enzyme rate data.
+#' @param .conc Column containing the concentration data.
+#' @param .rate Column containing the enzyme rate data.
 #' @param ... (optional) Columns with grouping info, such as sample ID, treatment etc.
-#' @param model Model to fit defaults to `drc::MM.2()`
+#' @param .model Model to fit defaults to `drc::MM.2()`
 #'
 #' @return `tibble` with nested list columns of data, model, predictions,
 #'  residuals and coefficients.
 #' @export
 #'
-#' @example
+#' @examples
 #' # Fitting MM curves to the enzymatic data inside of datasets::Puromycin
 #' Puromycin %>%
 #'  b_enzyme_rate(conc, rate, state)
 #'
 b_enzyme_rate <-
-  function(data,
-           conc,
-           rate,
+  function(.data,
+           .conc,
+           .rate,
            ...,
-           model = drc::MM.2(names = c("Vmax", "Km"))) {
-    b_dose_resp(data = data,
-                dose = conc,
-                response = rate,
-                ... = ...,
-                model = model)
+           .model = drc::MM.2(names = c("Vmax", "Km"))) {
+    b_dose_resp(
+      .data = .data,
+      .dose = {{ .conc }},
+      .resp = {{ .rate }},
+      ... = ...,
+      .model = .model
+    )
   }

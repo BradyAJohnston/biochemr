@@ -4,26 +4,22 @@
 \alias{b_binding}
 \title{Calculate Binding Affinities}
 \usage{
-b_binding(
-  data,
-  conc,
-  resp,
-  ...,
-  model = drc::LL.4(names = c("slope", "min", "max", "kd"))
-)
+b_binding(.data, .conc, .resp, ..., .slope = 1)
 }
 \arguments{
-\item{data}{data.frame or tibble containing dose response data.}
+\item{.data}{data.frame or tibble containing dose response data.}
 
-\item{conc}{Column with the concentration information.}
+\item{.conc}{Column with the concentration information.}
 
-\item{resp}{Column containing the response information.}
+\item{.resp}{Column containing the response information.}
 
-\item{...}{Columns that contain the grouping information for different
-samples.}
+\item{...}{Columns that contain the grouping information for the different
+samples in experiment (i.e. sample IDs, treatments etc).}
 
-\item{model}{Model to fit. Defaults to \code{drc::LL.4()} for log-logistic
-dose-response model for binding.}
+\item{.slope}{For all 1:1 binding interactions, the slope for the log -
+logistic curve should be 1. If the interaction has some cooperativity or it
+is not a 1:1 binding interaction, then this value will change and should be
+allowed to be free (set \code{slope = NA}).}
 }
 \value{
 A \code{tibble()} with list-columns containing the data, the predictions,

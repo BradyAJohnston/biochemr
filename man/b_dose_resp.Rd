@@ -5,25 +5,25 @@
 \title{Fitting of a Dose Response Model}
 \usage{
 b_dose_resp(
-  data,
-  dose,
-  response,
+  .data,
+  .dose,
+  .resp,
   ...,
-  model = drc::LL.4(names = c("slope", "min", "max", "ec50"))
+  .model = drc::LL.4(names = c("slope", "min", "max", "ec50"))
 )
 }
 \arguments{
-\item{dose}{Column name for the dose data.}
+\item{.data}{Data frame contain columns for dose, response and if required
+grouping variables.}
 
-\item{response}{Column name for the response data.}
+\item{.dose}{Column name for the dose data.}
+
+\item{.resp}{Column name for the response data.}
 
 \item{...}{Columns by which to group the data before fitting models.}
 
-\item{model}{Model function from \code{{drc}} to be fit to the data. Defaults to
+\item{.model}{Model function from \code{{drc}} to be fit to the data. Defaults to
 \code{drc::LL.4()} for the \code{b_dose_resp()} function.}
-
-\item{.data}{Data frame contain columns for dose, response and if required
-grouping variables.}
 }
 \value{
 A \code{tibble()} with list-columns containing the data, the predictions,
@@ -31,4 +31,8 @@ the residuals and the coefficients of the model.
 }
 \description{
 Fitting of a Dose Response Model
+}
+\examples{
+DNase \%>\%
+  b_dose_resp(conc, density, Run)
 }
