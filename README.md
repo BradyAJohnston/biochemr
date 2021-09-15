@@ -25,12 +25,10 @@ user will have very little experience with R and programming in general
 
 ## Installation
 
-You can install the released version of biochemr from
-[CRAN](https://CRAN.R-project.org) with:
-
-``` r
-install.packages("biochemr")
-```
+<!-- You can install the released version of biochemr from [CRAN](https://CRAN.R-project.org) with: -->
+<!-- ``` r -->
+<!-- install.packages("biochemr") -->
+<!-- ``` -->
 
 And the development version from [GitHub](https://github.com/) with:
 
@@ -41,7 +39,9 @@ devtools::install_github("BradyAJohnston/biochemr")
 
 ## Example
 
-Analaysis enzyme rate experiments.
+Analyze enzyme rate experiments by fitting the [Michaelis
+Menton](https://en.wikipedia.org/wiki/Michaelis%E2%80%93Menten_kinetics)
+equation that is implemented from the `{drc}` package via `drc::MM.2()`.
 
 #### Experimetal Data
 
@@ -63,43 +63,59 @@ df <- b_enzyme_rate(Puromycin, conc, rate, state)
 df
 #> # A tibble: 2 × 6
 #> # Groups:   state [2]
-#>   state     data              drmod  resid             pred           coefs     
-#>   <fct>     <list>            <list> <list>            <list>         <list>    
-#> 1 treated   <tibble [12 × 4]> <drc>  <tibble [12 × 5]> <df [230 × 5]> <tibble […
-#> 2 untreated <tibble [11 × 4]> <drc>  <tibble [11 × 5]> <df [230 × 5]> <tibble […
+#>   state     raw               data              drmod  pred           coefs     
+#>   <fct>     <list>            <list>            <list> <list>         <list>    
+#> 1 treated   <tibble [12 × 2]> <tibble [12 × 5]> <drc>  <df [120 × 4]> <tibble […
+#> 2 untreated <tibble [11 × 2]> <tibble [11 × 5]> <drc>  <df [110 × 4]> <tibble […
 ```
 
 The result is a tibble (like a data.frame) that has a row for each
 sample and a column the relevant data for each. The original data is in
-`data`, the fitted model is in `drmod`, the residuals for the model in
-`resid`, the predictions for the fitted curve (to draw the line) in
-`pred` and the coefficients (Vmax, Km) in `coefs`.
+`raw`, the dose, response and residuals are in `data`, the fitted model
+is inside `drmod` and the fitted curve (to draw the line) in `pred` and
+the coefficients (Vmax, Km) in `coefs`.
 
-To extract relevant coefficients, use `b_params()`.
+To extract relevant coefficients, use `b_coefs()`.
 
 ``` r
 df %>% 
-  b_params()
-#> # A tibble: 2 × 3
+  b_coefs()
+#> # A tibble: 4 × 7
 #> # Groups:   state [2]
-#>   state      Vmax     Km
-#>   <fct>     <dbl>  <dbl>
-#> 1 treated    213. 0.0641
-#> 2 untreated  160. 0.0477
+#>   state     term  curve       estimate std.error statistic  p.value
+#>   <fct>     <chr> <chr>          <dbl>     <dbl>     <dbl>    <dbl>
+#> 1 treated   Vmax  (Intercept) 213.       7.16        29.7  4.37e-11
+#> 2 treated   Km    (Intercept)   0.0641   0.00871      7.36 2.42e- 5
+#> 3 untreated Vmax  (Intercept) 160.       6.81        23.5  2.14e- 9
+#> 4 untreated Km    (Intercept)   0.0477   0.00842      5.67 3.07e- 4
 ```
 
 Make a nice looking table of the results.
 
 ``` r
 df %>% 
-  b_params() %>% 
+  b_coefs() %>% 
   knitr::kable()
 ```
 
-| state     |     Vmax |        Km |
-|:----------|---------:|----------:|
-| treated   | 212.6839 | 0.0641215 |
-| untreated | 160.2802 | 0.0477084 |
+| state     | term | curve       |    estimate | std.error | statistic |   p.value |
+|:----------|:-----|:------------|------------:|----------:|----------:|----------:|
+| treated   | Vmax | (Intercept) | 212.6838544 | 7.1606488 | 29.701757 | 0.0000000 |
+| treated   | Km   | (Intercept) |   0.0641215 | 0.0087112 |  7.360806 | 0.0000242 |
+| untreated | Vmax | (Intercept) | 160.2802158 | 6.8060674 | 23.549607 | 0.0000000 |
+| untreated | Km   | (Intercept) |   0.0477084 | 0.0084203 |  5.665846 | 0.0003073 |
+
+## Plotting
+
+Quick and convenient plotting for the results of different plotting
+functions.
+
+``` r
+df %>% 
+  b_plot()
+```
+
+<img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" />
 
 # Roadmap
 

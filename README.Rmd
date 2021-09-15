@@ -29,11 +29,11 @@ The documentation and tutorials that make up `{biochemr}` assume the user will h
 
 ## Installation
 
-You can install the released version of biochemr from [CRAN](https://CRAN.R-project.org) with:
+<!-- You can install the released version of biochemr from [CRAN](https://CRAN.R-project.org) with: -->
 
-``` r
-install.packages("biochemr")
-```
+<!-- ``` r -->
+<!-- install.packages("biochemr") -->
+<!-- ``` -->
 
 And the development version from [GitHub](https://github.com/) with:
 
@@ -44,7 +44,7 @@ devtools::install_github("BradyAJohnston/biochemr")
 
 ## Example
 
-Analaysis enzyme rate experiments.
+Analyze enzyme rate experiments by fitting the [Michaelis Menton](https://en.wikipedia.org/wiki/Michaelis%E2%80%93Menten_kinetics) equation that is implemented from the `{drc}` package via `drc::MM.2()`.
 
 #### Experimetal Data
 
@@ -60,20 +60,29 @@ df <- b_enzyme_rate(Puromycin, conc, rate, state)
 df
 ```
 
-The result is a tibble (like a data.frame) that has a row for each sample and a column the relevant data for each. The original data is in `data`, the fitted model is in `drmod`, the residuals for the model in `resid`, the predictions for the fitted curve (to draw the line) in `pred` and the coefficients (Vmax, Km) in `coefs`.
+The result is a tibble (like a data.frame) that has a row for each sample and a column the relevant data for each. The original data is in `raw`, the dose, response and residuals are in `data`, the fitted model is inside `drmod` and the fitted curve (to draw the line) in `pred` and the coefficients (Vmax, Km) in `coefs`.
 
-To extract relevant coefficients, use `b_params()`.
+To extract relevant coefficients, use `b_coefs()`.
 ```{r}
 df %>% 
-  b_params()
+  b_coefs()
 ```
 
 Make a nice looking table of the results.
 ```{r}
 df %>% 
-  b_params() %>% 
+  b_coefs() %>% 
   knitr::kable()
 ```
+
+## Plotting
+Quick and convenient plotting for the results of different plotting functions.
+
+```{r}
+df %>% 
+  b_plot()
+```
+
 
 
 # Roadmap
