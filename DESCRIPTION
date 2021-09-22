@@ -13,7 +13,7 @@ Description: A set of tools and functions for accessible and reproducible
     to be a one stop shop for leveraging the power of R and its rich
     ecosystem of packages for analysis of results from wet-lab
     biochemistry experiments.
-License: What license is it under?
+License: MIT + file LICENSE
 URL: https://github.com/BradyAJohnston/biochemr
 BugReports: https://github.com/BradyAJohnston/biochemr/issues
 Imports: 
@@ -23,10 +23,13 @@ Imports:
     ggplot2,
     lifecycle,
     magrittr,
+    methods,
     modelr,
     purrr,
+    rlang,
     stringr,
-    tidyr
+    tidyr,
+    tidyselect
 Suggests: 
     testthat (>= 3.0.0),
     tidyverse

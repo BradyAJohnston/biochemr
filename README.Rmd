@@ -32,7 +32,9 @@ The documentation and tutorials that make up `{biochemr}` assume the user will h
 <!-- You can install the released version of biochemr from [CRAN](https://CRAN.R-project.org) with: -->
 
 <!-- ``` r -->
+
 <!-- install.packages("biochemr") -->
+
 <!-- ``` -->
 
 And the development version from [GitHub](https://github.com/) with:
@@ -60,42 +62,42 @@ df <- b_enzyme_rate(Puromycin, conc, rate, state)
 df
 ```
 
-The result is a tibble (like a data.frame) that has a row for each sample and a column the relevant data for each. The original data is in `raw`, the dose, response and residuals are in `data`, the fitted model is inside `drmod` and the fitted curve (to draw the line) in `pred` and the coefficients (Vmax, Km) in `coefs`.
+The result is a tibble (like a data.frame) that has a row for each sample and a column the relevant data for each. The original data is in `raw`, the dose, response and residuals are in `data`, the fitted model is inside `drmod` and the fitted curve (to draw the line) in `line` and the coefficients (such as *Vmax* and *Km*) in `coefs`.
 
 To extract relevant coefficients, use `b_coefs()`.
+
 ```{r}
 df %>% 
   b_coefs()
 ```
 
-Make a nice looking table of the results.
-```{r}
-df %>% 
-  b_coefs() %>% 
-  knitr::kable()
-```
-
 ## Plotting
+
 Quick and convenient plotting for the results of different plotting functions.
 
-```{r}
-df %>% 
+```{r, fig.height=4}
+plt <- df %>% 
   b_plot()
+plt
+
 ```
 
+The `b_plot()` function just returns a `ggplot` object, so you can continue customisation as you would otherwise.
 
+```{r, fig.height=4}
+plt + 
+  ggplot2::labs(x = "[substrate] nM", 
+                y = "Enzyme Rate (nM/M/min)")
+```
 
 # Roadmap
-The plan is to add support for as many types of analysis for experiments in
-biochemistry as possible. A list of planned and currently supported approaches
-are below. Please open an issue or make a pull request to add analysis you would
-like to see supported.
+
+The plan is to add support for as many types of analysis for experiments in biochemistry as possible. A list of planned and currently supported approaches are below. Please open an issue or make a pull request to add analysis you would like to see supported.
 
 Experimental analysis to be supported by `{biochemr}`:
 
-- [x] Ligand binding experiments for calculating `Kd`.
-- [x] Enzyme rate experiments for calculating `Vmax` and `Km`
-- [ ] qPCR Experimental Analysis
-- [ ] Replotting of FPLC / HPLC Traces for _aesthetic_ and informative
-chromatograms.
-- [ ] Creating and estimating unkowns from standard curves.
+-   [x] Ligand binding experiments for calculating `Kd`.
+-   [x] Enzyme rate experiments for calculating `Vmax` and `Km`
+-   [ ] qPCR Experimental Analysis
+-   [ ] Replotting of FPLC / HPLC Traces for *aesthetic* and informative chromatograms.
+-   [ ] Creating and estimating unkowns from standard curves.

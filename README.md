@@ -63,17 +63,17 @@ df <- b_enzyme_rate(Puromycin, conc, rate, state)
 df
 #> # A tibble: 2 × 6
 #> # Groups:   state [2]
-#>   state     raw               data              drmod  pred           coefs     
+#>   state     raw               data              drmod  line           coefs     
 #>   <fct>     <list>            <list>            <list> <list>         <list>    
-#> 1 treated   <tibble [12 × 2]> <tibble [12 × 5]> <drc>  <df [120 × 4]> <tibble […
-#> 2 untreated <tibble [11 × 2]> <tibble [11 × 5]> <drc>  <df [110 × 4]> <tibble […
+#> 1 treated   <tibble [12 × 2]> <tibble [12 × 5]> <drc>  <df [230 × 4]> <tibble […
+#> 2 untreated <tibble [11 × 2]> <tibble [11 × 5]> <drc>  <df [230 × 4]> <tibble […
 ```
 
 The result is a tibble (like a data.frame) that has a row for each
 sample and a column the relevant data for each. The original data is in
 `raw`, the dose, response and residuals are in `data`, the fitted model
-is inside `drmod` and the fitted curve (to draw the line) in `pred` and
-the coefficients (Vmax, Km) in `coefs`.
+is inside `drmod` and the fitted curve (to draw the line) in `line` and
+the coefficients (such as *Vmax* and *Km*) in `coefs`.
 
 To extract relevant coefficients, use `b_coefs()`.
 
@@ -90,29 +90,26 @@ df %>%
 #> 4 untreated Km    (Intercept)   0.0477   0.00842      5.67 3.07e- 4
 ```
 
-Make a nice looking table of the results.
-
-``` r
-df %>% 
-  b_coefs() %>% 
-  knitr::kable()
-```
-
-| state     | term | curve       |    estimate | std.error | statistic |   p.value |
-|:----------|:-----|:------------|------------:|----------:|----------:|----------:|
-| treated   | Vmax | (Intercept) | 212.6838544 | 7.1606488 | 29.701757 | 0.0000000 |
-| treated   | Km   | (Intercept) |   0.0641215 | 0.0087112 |  7.360806 | 0.0000242 |
-| untreated | Vmax | (Intercept) | 160.2802158 | 6.8060674 | 23.549607 | 0.0000000 |
-| untreated | Km   | (Intercept) |   0.0477084 | 0.0084203 |  5.665846 | 0.0003073 |
-
 ## Plotting
 
 Quick and convenient plotting for the results of different plotting
 functions.
 
 ``` r
-df %>% 
+plt <- df %>% 
   b_plot()
+plt
+```
+
+<img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />
+
+The `b_plot()` function just returns a `ggplot` object, so you can
+continue customisation as you would otherwise.
+
+``` r
+plt + 
+  ggplot2::labs(x = "[substrate] nM", 
+                y = "Enzyme Rate (nM/M/min)")
 ```
 
 <img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" />

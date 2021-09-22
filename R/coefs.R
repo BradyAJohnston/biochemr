@@ -3,6 +3,7 @@
 #' @param data Tibble containing a `coefs` column resulting from a model fit.
 #'
 #' @return tibble containing grouped variables and extracted parameters.
+#' @importFrom rlang .data
 #' @export
 #'
 #' @example
@@ -13,15 +14,16 @@
 #'  b_coefs()
 #'
 b_coefs <- function(data) {
-  data %>%
+  results <- data %>%
     # get only rows for which the model fit succeeded
-    dplyr::filter(!is.na(drmod)) %>%
+    dplyr::filter(!is.na(.data$drmod)) %>%
     # unnest the coefficients nested lists
-    tidyr::unnest(coefs) %>%
+    tidyr::unnest(.data$coefs) %>%
     # select quietly, ignore the message saying grouping column also selected
-    purrr::quietly(dplyr::select)(!where(is.list)) %>%
+    purrr::quietly(dplyr::select)(
+      !tidyselect::vars_select_helpers$where(is.list)
+      )
+
     # get the result of purrr::quietly
-    .[[1]] #%>%
-    # pivot the values wider for a more human-readable table
-    # tidyr::pivot_wider(names_from = parameter, values_from = value)
+    results[[1]]
 }

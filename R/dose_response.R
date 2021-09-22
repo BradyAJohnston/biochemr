@@ -38,58 +38,61 @@ b_dose_resp <-
 
 
     predict.fun <- function(model, data) {
-      if (is.na(model)) {
+      if (!(methods::is(model) %in% c("drc"))) {
         return(NA)
       }
 
-      # find min and max non-zero dose values
-      dose <- data %>%
-        dplyr::filter(!is.na(dose),
-               dose > 0) %>%
-        dplyr::pull(dose)
+      dose_vector <- .data$dose[.data$dose > 0 & !is.na(.data$dose)]
 
-      # create data.frame, from a dose sequence 10% below and above minimums
-      from <- min(dose) * 0.9
-      to <- max(dose) * 1.1
+      # find min and max and go 10% above and below
+      from <- min(dose_vector) * 0.9
+      to <- max(dose_vector) * 1.1
 
+      # create df for the curve, using min and max. Work in log / exp space
+      # so that the curve is consistent when plotting on scale_x_log10()
       preddf <- data.frame(dose = exp(seq(
         from = log(from),
         to = log(to),
-        length.out = length(data$dose) * 10
+        length.out = length(dose_vector) * 10
       )))
 
+      # add the values along with confidence to the data frame
       preddf <- cbind(preddf,
                       dplyr::as_tibble(stats::predict(model,
                                                       newdata = preddf,
                                                       interval = "confidence"))
                       )
 
-      preddf %>%
-        dplyr::rename(pred = Prediction, lower = Lower, upper = Upper)
+      # rename to make all columns lowercase and return tibble
+      dplyr::rename(.data = preddf,
+                    pred = .data$Prediction,
+                    lower = .data$Lower,
+                    upper = .data$Upper)
     }
 
     results <- .data %>%
       dplyr::group_by(...) %>%
       tidyr::nest(
-        raw = !c(dose, resp, ...),
-        data = c(dose, resp)
+        raw = !c(.data$dose, .data$resp, ...),
+        data = c(.data$dose, .data$resp)
       ) %>%
       purrr::quietly(dplyr::mutate)(
         # fit the drm model to the data in data
-        drmod = purrr::map(data, purrr::possibly(drm.func, NA)),
+        drmod = purrr::map(.data$data, purrr::possibly(drm.func, NA)),
 
         # use broom::augment to add residuals and other information from the fit
         # to the data column
-        data = purrr::map2(drmod, data, purrr::possibly(broom::augment, data)),
+        data = purrr::map2(.data$drmod, .data$data, purrr::possibly(broom::augment, .data$data)),
 
         # create column of values that make up the 'prediction' for plotting the
         # fitted curve
-        pred = purrr::map2(drmod, data, purrr::possibly(predict.fun, NA)),
+        line = purrr::map2(.data$drmod, .data$data, purrr::possibly(predict.fun, NA)),
 
         # create a column that contains all of the coefficients from the fitted
-        # model, extracted using broom::tidy
-        coefs = purrr::map(drmod, purrr::possibly(broom::tidy, NA))
+        # model, extracted using broom::tidy()
+        coefs = purrr::map(.data$drmod, purrr::possibly(broom::tidy, NA))
       )
 
+    # return the results of purrr::quietly() and not the warnings generated
     results[[1]]
   }

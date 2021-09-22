@@ -7,19 +7,23 @@
 b_plot(data, ..., .facet = TRUE)
 }
 \arguments{
-\item{...}{Additional \code{ggplot2::aes()} parameters to be applied to the plot.}
-
-\item{.facet}{Logical, whether to apply \code{ggplot2::facet_wrap()} based on the
+\item{data}{Tibble with nested columns of \code{data}, \code{drmod}, \code{line}, \code{coefs}
+made through one of the \code{b_binding()} or \verb{b_enzyme_*()} functions.
 currently used facetting variables.}
 
-\item{.data}{Data frame with nested columns of data, models and predictions.}
+\item{...}{Additional \code{ggplot2::aes()} parameters to be applied to the plot.}
 
-\item{.annotate}{Logical, whether to automatically add labels to the plots
-containing the relevant coefficient information from the model.}
+\item{.facet}{Logical, whether to apply \code{ggplot2::facet_wrap()} based on the}
 }
 \value{
 \code{ggplot2::ggplot()} object.
 }
 \description{
 Plot Data with Fitted  Models
+}
+\examples{
+library(tidyverse)
+Puromycin \%>\%
+  b_enzyme_rate(conc, rate, state) \%>\%
+  b_plot()
 }
