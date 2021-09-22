@@ -42,7 +42,7 @@ b_dose_resp <-
         return(NA)
       }
 
-      dose_vector <- .data$dose[.data$dose > 0 & !is.na(.data$dose)]
+      dose_vector <- data$dose[data$dose > 0 & !is.na(data$dose)]
 
       # find min and max and go 10% above and below
       from <- min(dose_vector) * 0.9
