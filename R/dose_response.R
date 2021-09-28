@@ -1,5 +1,9 @@
 #' Fitting of a Dose Response Model
 #'
+#' Generic internal function for fitting of dose-response models with the output
+#' in a _tidy_ format. Results include nested columns of raw data, fitted
+#' models, model parameters and curve data for plotting.
+#'
 #' @param .data Data frame contain columns for dose, response and if required
 #'   grouping variables.
 #' @param .dose Column name for the dose data.
@@ -71,7 +75,7 @@ b_dose_resp <-
     }
 
     results <- .data %>%
-      dplyr::group_by(...) %>%
+      # dplyr::group_by(..., .add = TRUE) %>%
       tidyr::nest(
         raw = !c(.data$dose, .data$resp, ...),
         data = c(.data$dose, .data$resp)

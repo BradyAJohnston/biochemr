@@ -15,3 +15,11 @@ tibble containing grouped variables and extracted parameters.
 \description{
 Extract Model Parameters to Columns
 }
+\examples{
+
+# Fitting MM models to the enzymatic data, pull out the relevant information.
+Puromycin \%>\%
+ b_enzyme_rate(conc, rate, state) \%>\%
+ b_coefs()
+
+}

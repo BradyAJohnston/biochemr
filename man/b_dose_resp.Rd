@@ -30,7 +30,9 @@ A \code{tibble()} with list-columns containing the data, the predictions,
 the residuals and the coefficients of the model.
 }
 \description{
-Fitting of a Dose Response Model
+Generic internal function for fitting of dose-response models with the output
+in a \emph{tidy} format. Results include nested columns of raw data, fitted
+models, model parameters and curve data for plotting.
 }
 \examples{
 DNase \%>\%

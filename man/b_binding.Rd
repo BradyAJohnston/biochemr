@@ -4,19 +4,19 @@
 \alias{b_binding}
 \title{Calculate Binding Affinities}
 \usage{
-b_binding(.data, .conc, .resp, ..., .slope = 1)
+b_binding(data, conc, resp, ..., slope = 1)
 }
 \arguments{
-\item{.data}{data.frame or tibble containing dose response data.}
+\item{data}{data.frame or tibble containing dose response data.}
 
-\item{.conc}{Column with the concentration information.}
+\item{conc}{Column with the concentration information.}
 
-\item{.resp}{Column containing the response information.}
+\item{resp}{Column containing the response information.}
 
 \item{...}{Columns that contain the grouping information for the different
 samples in experiment (i.e. sample IDs, treatments etc).}
 
-\item{.slope}{For all 1:1 binding interactions, the slope for the log -
+\item{slope}{For all 1:1 binding interactions, the slope for the log -
 logistic curve should be 1. If the interaction has some cooperativity or it
 is not a 1:1 binding interaction, then this value will change and should be
 allowed to be free (set \code{slope = NA}).}

@@ -31,6 +31,7 @@ Imports:
     tidyr,
     tidyselect
 Suggests: 
+    vdiffr,
     testthat (>= 3.0.0),
     tidyverse
 Encoding: UTF-8

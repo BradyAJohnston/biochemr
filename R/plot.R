@@ -1,7 +1,7 @@
 #' Plot Data with Fitted  Models
 #'
 #' @param ... Additional `ggplot2::aes()` parameters to be applied to the plot.
-#' @param .facet Logical, whether to apply `ggplot2::facet_wrap()` based on the
+#' @param facet Logical, whether to apply `ggplot2::facet_wrap()` based on the
 #' @param data Tibble with nested columns of `data`, `drmod`, `line`, `coefs`
 #'   made through one of the `b_binding()` or `b_enzyme_*()` functions.
 #'   currently used facetting variables.
@@ -13,7 +13,7 @@
 #' Puromycin %>%
 #'   b_enzyme_rate(conc, rate, state) %>%
 #'   b_plot()
-b_plot <- function(data, ..., .facet = TRUE) {
+b_plot <- function(data, ..., facet = TRUE) {
 
   if (dplyr::is_grouped_df(data)) {
     group_vars <- dplyr::group_vars(data)
@@ -33,11 +33,11 @@ b_plot <- function(data, ..., .facet = TRUE) {
   plt <- plt +
     ggplot2::aes(...) +
     ggplot2::geom_point(
-      ggplot2::aes(x = point_data$dose, y = point_data$resp),
+      ggplot2::aes(x = .data$dose, y = .data$resp),
       data = point_data
     ) +
     ggplot2::geom_line(
-      ggplot2::aes(x = curve_data$dose, y = curve_data$pred),
+      ggplot2::aes(x = .data$dose, y = .data$pred),
       data = curve_data
     ) +
     ggplot2::labs(x = "Dose", y = "Response") +
@@ -48,7 +48,7 @@ b_plot <- function(data, ..., .facet = TRUE) {
     ) +
     ggplot2::scale_colour_discrete()
 
-  if (.facet & length(group_vars) != 0) {
+  if (facet & length(group_vars) != 0) {
     plt <- plt + ggplot2::facet_wrap(group_vars)
   }
 

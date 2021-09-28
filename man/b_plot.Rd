@@ -4,7 +4,7 @@
 \alias{b_plot}
 \title{Plot Data with Fitted  Models}
 \usage{
-b_plot(data, ..., .facet = TRUE)
+b_plot(data, ..., facet = TRUE)
 }
 \arguments{
 \item{data}{Tibble with nested columns of \code{data}, \code{drmod}, \code{line}, \code{coefs}
@@ -13,7 +13,7 @@ currently used facetting variables.}
 
 \item{...}{Additional \code{ggplot2::aes()} parameters to be applied to the plot.}
 
-\item{.facet}{Logical, whether to apply \code{ggplot2::facet_wrap()} based on the}
+\item{facet}{Logical, whether to apply \code{ggplot2::facet_wrap()} based on the}
 }
 \value{
 \code{ggplot2::ggplot()} object.

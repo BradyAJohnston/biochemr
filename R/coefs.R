@@ -6,7 +6,7 @@
 #' @importFrom rlang .data
 #' @export
 #'
-#' @example
+#' @examples
 #'
 #' # Fitting MM models to the enzymatic data, pull out the relevant information.
 #' Puromycin %>%
