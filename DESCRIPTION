@@ -28,6 +28,7 @@ Imports:
     purrr,
     rlang,
     stringr,
+    tibble,
     tidyr,
     tidyselect
 Suggests: 
