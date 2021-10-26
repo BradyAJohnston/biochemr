@@ -98,5 +98,5 @@ b_dose_resp <-
       )
 
     # return the results of purrr::quietly() and not the warnings generated
-    results[[1]]
+    tibble::as_tibble(results[[1]])
   }

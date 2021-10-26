@@ -38,6 +38,5 @@ b_binding <-
       fixed = c(slope, NA, NA, NA)
     )
 
-    b_dose_resp(data, {{ conc }}, {{ resp }}, ..., .model = model) %>%
-      tibble::as_tibble()
+    b_dose_resp(data, {{ conc }}, {{ resp }}, ..., .model = model)
   }
