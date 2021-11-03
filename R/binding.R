@@ -13,8 +13,7 @@
 #'   logistic curve should be 1. If the interaction has some cooperativity or it
 #'   is not a 1:1 binding interaction, then this value will change and should be
 #'   allowed to be free (set `slope = NA`).
-#' @return A `tibble()` with list-columns containing the data, the predictions,
-#'   the residuals and the coefficients of the model.
+#' @return a [tibble][tibble::tibble-package]
 #' @export
 #'
 #' @examples
