@@ -38,5 +38,11 @@ b_binding <-
       fixed = c(slope, NA, NA, NA)
     )
 
-    b_dose_resp(data, {{ conc }}, {{ resp }}, ..., .model = model)
+    b_dose_resp(
+      .data = data,
+      .dose = {{ conc }},
+      .resp = {{ resp }},
+      ...,
+      .model = model
+    )
   }

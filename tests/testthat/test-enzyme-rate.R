@@ -1,8 +1,9 @@
 testthat::test_that("b_enyme_rate is not equal to drc::drm()", {
   values1 <- drc::drm(rate ~ conc,
-                      data = Puromycin,
-                      curveid = state,
-                      fct = drc::MM.2(names = c("Vmax", "Km"))) %>%
+    data = Puromycin,
+    curveid = state,
+    fct = drc::MM.2(names = c("Vmax", "Km"))
+  ) %>%
     coefficients() %>%
     unname() %>%
     sort() %>%

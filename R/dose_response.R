@@ -25,7 +25,6 @@ b_dose_resp <-
            .resp,
            ...,
            .model = drc::LL.4(names = c("slope", "min", "max", "ec50"))) {
-
     .data <- .data %>%
       dplyr::mutate(
         dose = {{ .dose }},
@@ -61,17 +60,21 @@ b_dose_resp <-
       )))
 
       # add the values along with confidence to the data frame
-      preddf <- cbind(preddf,
-                      dplyr::as_tibble(stats::predict(model,
-                                                      newdata = preddf,
-                                                      interval = "confidence"))
-                      )
+      preddf <- cbind(
+        preddf,
+        dplyr::as_tibble(stats::predict(model,
+          newdata = preddf,
+          interval = "confidence"
+        ))
+      )
 
       # rename to make all columns lowercase and return tibble
-      dplyr::rename(.data = preddf,
-                    pred = .data$Prediction,
-                    lower = .data$Lower,
-                    upper = .data$Upper)
+      dplyr::rename(
+        .data = preddf,
+        pred = .data$Prediction,
+        lower = .data$Lower,
+        upper = .data$Upper
+      )
     }
 
     results <- .data %>%

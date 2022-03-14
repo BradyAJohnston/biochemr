@@ -10,5 +10,3 @@ testthat::test_that("b_dose_resp is not equal to drc::drm()", {
 
   testthat::expect_equal(values1, values2)
 })
-
-

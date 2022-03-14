@@ -22,8 +22,7 @@
 #' @examples
 #' # Fitting MM curves to the enzymatic data inside of datasets::Puromycin
 #' Puromycin %>%
-#'  b_enzyme_rate(conc, rate, state)
-#'
+#'   b_enzyme_rate(conc, rate, state)
 b_enzyme_rate <-
   function(data,
            conc,
@@ -35,7 +34,7 @@ b_enzyme_rate <-
     model <- drc::MM.3(
       names = c("min", "Vmax", "Km"),
       fixed = c(min, NA, NA)
-      )
+    )
 
     b_dose_resp(
       .data = data,

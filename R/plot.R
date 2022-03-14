@@ -13,47 +13,49 @@
 #' Puromycin %>%
 #'   b_enzyme_rate(conc, rate, state) %>%
 #'   b_plot()
-b_plot <- function(data, ..., facet = TRUE) {
+b_plot <-
+  function(data,
+           ...,
+           facet = TRUE) {
+    if (dplyr::is_grouped_df(data)) {
+      group_vars <- dplyr::group_vars(data)
+    } else {
+      group_vars <- data %>%
+        dplyr::select(!tidyselect::vars_select_helpers$where(is.list)) %>%
+        names()
+    }
 
-  if (dplyr::is_grouped_df(data)) {
-    group_vars <- dplyr::group_vars(data)
-  } else {
-    group_vars <- data %>%
-      dplyr::select(!tidyselect::vars_select_helpers$where(is.list)) %>%
-      names()
+    plt <- ggplot2::ggplot(data)
+
+    point_data <- data %>% tidyr::unnest(.data$data)
+    curve_data <- data %>% tidyr::unnest(.data$line)
+
+    if (length(group_vars) > 0) plt <- plt + ggplot2::aes_string(group = group_vars)
+
+    plt <- plt +
+      ggplot2::aes(...) +
+      ggplot2::geom_point(
+        ggplot2::aes(x = .data$dose, y = .data$resp),
+        data = point_data
+      ) +
+      ggplot2::geom_line(
+        ggplot2::aes(x = .data$dose, y = .data$pred),
+        data = curve_data
+      ) +
+      ggplot2::labs(x = "Dose", y = "Response") +
+      ggplot2::theme_light() +
+      ggplot2::theme(
+        strip.text = ggplot2::element_text(colour = "black"),
+        strip.background = ggplot2::element_rect(fill = NA, colour = "gray40")
+      ) +
+      ggplot2::scale_colour_discrete()
+
+    if (facet & length(group_vars) != 0) {
+      plt <- plt + ggplot2::facet_wrap(group_vars)
+    }
+
+    plt
   }
-
-  plt <- ggplot2::ggplot(data)
-
-  point_data <- data %>% tidyr::unnest(.data$data)
-  curve_data <- data %>% tidyr::unnest(.data$line)
-
-  if (length(group_vars) > 0) plt <- plt + ggplot2::aes_string(group = group_vars)
-
-  plt <- plt +
-    ggplot2::aes(...) +
-    ggplot2::geom_point(
-      ggplot2::aes(x = .data$dose, y = .data$resp),
-      data = point_data
-    ) +
-    ggplot2::geom_line(
-      ggplot2::aes(x = .data$dose, y = .data$pred),
-      data = curve_data
-    ) +
-    ggplot2::labs(x = "Dose", y = "Response") +
-    ggplot2::theme_light() +
-    ggplot2::theme(
-      strip.text = ggplot2::element_text(colour = "black"),
-      strip.background = ggplot2::element_rect(fill = NA, colour = "gray40")
-    ) +
-    ggplot2::scale_colour_discrete()
-
-  if (facet & length(group_vars) != 0) {
-    plt <- plt + ggplot2::facet_wrap(group_vars)
-  }
-
-  plt
-}
 
 #' Comparison Plot of Estimated Terms
 #'
@@ -75,7 +77,7 @@ b_plot <- function(data, ..., facet = TRUE) {
 #' @examples
 #'
 #' DNase %>%
-#' b_binding(conc, density, Run) %>%
+#'   b_binding(conc, density, Run) %>%
 #'   b_plot_coefs(Run, term = "kd", colour = Run)
 b_plot_coefs <-
   function(data,
@@ -84,11 +86,10 @@ b_plot_coefs <-
            ...,
            pointSize = 3,
            errorBarHeight = 0.3) {
-
     data <- data %>%
       b_coefs()
 
-    data <- data[data$term %in% term,]
+    data <- data[data$term %in% term, ]
 
     data %>%
       ggplot2::ggplot(
@@ -114,8 +115,7 @@ b_plot_coefs <-
         strip.text = ggplot2::element_text(colour = "gray10")
       ) -> plt
 
-    if (length(term) > 1) plt <-  plt + ggplot2::facet_wrap(~.data$term)
+    if (length(term) > 1) plt <- plt + ggplot2::facet_wrap(~ .data$term)
 
     plt
-
   }

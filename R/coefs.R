@@ -10,9 +10,8 @@
 #'
 #' # Fitting MM models to the enzymatic data, pull out the relevant information.
 #' Puromycin %>%
-#'  b_enzyme_rate(conc, rate, state) %>%
-#'  b_coefs()
-#'
+#'   b_enzyme_rate(conc, rate, state) %>%
+#'   b_coefs()
 b_coefs <- function(data) {
   results <- data %>%
     # get only rows for which the model fit succeeded
@@ -22,8 +21,8 @@ b_coefs <- function(data) {
     # select quietly, ignore the message saying grouping column also selected
     purrr::quietly(dplyr::select)(
       !tidyselect::vars_select_helpers$where(is.list)
-      )
+    )
 
-    # get the result of purrr::quietly
-    results[[1]]
+  # get the result of purrr::quietly
+  results[[1]]
 }
