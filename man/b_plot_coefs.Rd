@@ -33,6 +33,6 @@ terms, also showing the calculated standard errors as errorbars.
 \examples{
 
 DNase \%>\%
-b_binding(conc, density, Run) \%>\%
+  b_binding(conc, density, Run) \%>\%
   b_plot_coefs(Run, term = "kd", colour = Run)
 }

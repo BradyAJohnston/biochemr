@@ -22,8 +22,7 @@ is not a 1:1 binding interaction, then this value will change and should be
 allowed to be free (set \code{slope = NA}).}
 }
 \value{
-A \code{tibble()} with list-columns containing the data, the predictions,
-the residuals and the coefficients of the model.
+a \link[tibble:tibble-package]{tibble}
 }
 \description{
 Calculated binding affinities (Kd) from experimental data that contains dose

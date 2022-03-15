@@ -34,6 +34,5 @@ to let the function find the minimum (if enzyme rate is > 0 at concentration
 \examples{
 # Fitting MM curves to the enzymatic data inside of datasets::Puromycin
 Puromycin \%>\%
- b_enzyme_rate(conc, rate, state)
-
+  b_enzyme_rate(conc, rate, state)
 }

@@ -19,7 +19,6 @@ Extract Model Parameters to Columns
 
 # Fitting MM models to the enzymatic data, pull out the relevant information.
 Puromycin \%>\%
- b_enzyme_rate(conc, rate, state) \%>\%
- b_coefs()
-
+  b_enzyme_rate(conc, rate, state) \%>\%
+  b_coefs()
 }
