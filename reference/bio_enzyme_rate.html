@@ -86,7 +86,46 @@ residuals and coefficients.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># Fitting MM curves to the enzymatic data inside of datasets::Puromycin</span></span>
+<span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">bicohemr</span><span class="op">)</span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in library(bicohemr):</span> there is no package called ‘bicohemr’</span>
+<span class="r-in"><span class="va">df</span> <span class="op">&lt;-</span> <span class="va">Puromycin</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
+<span class="r-in">  <span class="fu">bio_enzyme_rate</span><span class="op">(</span><span class="va">conc</span>, <span class="va">rate</span>, <span class="va">state</span><span class="op">)</span></span>
+<span class="r-in"></span>
+<span class="r-in"><span class="co"># the result is a tibble with a column for the data, a column for the</span></span>
+<span class="r-in"><span class="co"># calculated # model and a column for the relevant coefficients extracted from</span></span>
+<span class="r-in"><span class="co"># the model</span></span>
+<span class="r-in"><span class="va">df</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 2 × 4</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   state     data              model  coefs           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;list&gt;</span> <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> treated   <span style="color: #949494;">&lt;tibble [12 × 2]&gt;</span> <span style="color: #949494;">&lt;drc&gt;</span>  <span style="color: #949494;">&lt;tibble [2 × 5]&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> untreated <span style="color: #949494;">&lt;tibble [11 × 2]&gt;</span> <span style="color: #949494;">&lt;drc&gt;</span>  <span style="color: #949494;">&lt;tibble [2 × 5]&gt;</span></span>
+<span class="r-in"></span>
+<span class="r-in"><span class="co"># you can extract the coefficient data using either `bio_coefs()` or</span></span>
+<span class="r-in"><span class="co"># `unnest()` on the column</span></span>
+<span class="r-in"><span class="fu"><a href="bio_coefs.html">bio_coefs</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 4 × 6</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   state     term  estimate std.error statistic  p.value</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> treated   Vmax  213.       7.16        29.7  4.37<span style="color: #949494;">e</span><span style="color: #BB0000;">-11</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> treated   Km      0.064<span style="text-decoration: underline;">1</span>   0.008<span style="text-decoration: underline;">71</span>      7.36 2.42<span style="color: #949494;">e</span><span style="color: #BB0000;">- 5</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> untreated Vmax  160.       6.81        23.5  2.14<span style="color: #949494;">e</span><span style="color: #BB0000;">- 9</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> untreated Km      0.047<span style="text-decoration: underline;">7</span>   0.008<span style="text-decoration: underline;">42</span>      5.67 3.07<span style="color: #949494;">e</span><span style="color: #BB0000;">- 4</span></span>
+<span class="r-in"><span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/nest.html" class="external-link">unnest</a></span><span class="op">(</span><span class="va">df</span>, <span class="va">coefs</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 4 × 8</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   state     data              model  term  estimate std.error statistic  p.value</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;list&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> treated   <span style="color: #949494;">&lt;tibble [12 × 2]&gt;</span> <span style="color: #949494;">&lt;drc&gt;</span>  Vmax  213.       7.16        29.7  4.37<span style="color: #949494;">e</span><span style="color: #BB0000;">-11</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> treated   <span style="color: #949494;">&lt;tibble [12 × 2]&gt;</span> <span style="color: #949494;">&lt;drc&gt;</span>  Km      0.064<span style="text-decoration: underline;">1</span>   0.008<span style="text-decoration: underline;">71</span>      7.36 2.42<span style="color: #949494;">e</span><span style="color: #BB0000;">- 5</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> untreated <span style="color: #949494;">&lt;tibble [11 × 2]&gt;</span> <span style="color: #949494;">&lt;drc&gt;</span>  Vmax  160.       6.81        23.5  2.14<span style="color: #949494;">e</span><span style="color: #BB0000;">- 9</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> untreated <span style="color: #949494;">&lt;tibble [11 × 2]&gt;</span> <span style="color: #949494;">&lt;drc&gt;</span>  Km      0.047<span style="text-decoration: underline;">7</span>   0.008<span style="text-decoration: underline;">42</span>      5.67 3.07<span style="color: #949494;">e</span><span style="color: #BB0000;">- 4</span></span>
+<span class="r-in"></span>
+<span class="r-in"><span class="co"># quick plot can be made for inspecing the results with `bio_plot()`</span></span>
+<span class="r-in"><span class="va">df</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
+<span class="r-in">  <span class="fu"><a href="bio_plot.html">bio_plot</a></span><span class="op">(</span><span class="op">)</span></span>
+<span class="r-plt img"><img src="bio_enzyme_rate-1.png" alt="" width="700" height="433"></span>
+</code></pre></div>
     </div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
