@@ -71,7 +71,7 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
 <span class="r-in"><span class="co"># Fitting MM models to the enzymatic data, pull out the relevant information.</span></span>
 <span class="r-in"><span class="va">Puromycin</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in">  <span class="fu"><a href="bio_enzyme_rate.html">bio_enzyme_rate</a></span><span class="op">(</span><span class="va">conc</span>, <span class="va">rate</span>, <span class="va">state</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
+<span class="r-in">  <span class="fu"><a href="bio_enzyme_rate.html">bio_enzyme_rate</a></span><span class="op">(</span><span class="va">conc</span>, <span class="va">rate</span>, group <span class="op">=</span> <span class="va">state</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
 <span class="r-in">  <span class="fu">bio_coefs</span><span class="op">(</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 4 × 6</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   state     term  estimate std.error statistic  p.value</span>
