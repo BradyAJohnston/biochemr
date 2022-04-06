@@ -1,5 +1,5 @@
 ---
-output: github_document
+output: githubio_document
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -57,18 +57,18 @@ head(Puromycin)
 
 ```{r}
 library(biochemr)
-df <- b_enzyme_rate(Puromycin, conc, rate, state)
+df <- bio_enzyme_rate(Puromycin, conc, rate, state)
 
 df
 ```
 
 The result is a tibble (like a data.frame) that has a row for each sample and a column the relevant data for each. The original data is in `raw`, the dose, response and residuals are in `data`, the fitted model is inside `drmod` and the fitted curve (to draw the line) in `line` and the coefficients (such as *Vmax* and *Km*) in `coefs`.
 
-To extract relevant coefficients, use `b_coefs()`.
+To extract relevant coefficients, use `bio_coefs()`.
 
 ```{r}
 df %>% 
-  b_coefs()
+  bio_coefs()
 ```
 
 ## Plotting
@@ -77,12 +77,12 @@ Quick and convenient plotting for the results of different plotting functions.
 
 ```{r, fig.height=4}
 plt <- df %>% 
-  b_plot()
+  bio_plot()
 plt
 
 ```
 
-The `b_plot()` function just returns a `ggplot` object, so you can continue customisation as you would otherwise.
+The `bio_plot()` function just returns a `ggplot` object, so you can continue customisation as you would otherwise.
 
 ```{r, fig.height=4}
 plt + 

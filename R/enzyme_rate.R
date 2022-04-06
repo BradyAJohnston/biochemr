@@ -9,11 +9,10 @@
 #'   optionally grouping information.
 #' @param conc Column containing the concentration data.
 #' @param rate Column containing the enzyme rate data.
-#' @param ... (optional) Column names to group experimental data, such as
-#'   `state`, `Run`, `sample` etc.
 #' @param min Minimum value of enzyme rate. Defaults to 0, as if there is 0
 #'   substrate there should be no enzymatic activity in a properly blanked
 #'   experiment. Set to `NA` to allow the model to fit the minimum value.
+#' @param group
 #'
 #' @return `tibble` with nested list columns of data, model, predictions,
 #'  residuals and coefficients.
@@ -22,26 +21,25 @@
 #' @examples
 #' # Fitting MM curves to the enzymatic data inside of datasets::Puromycin
 #' Puromycin %>%
-#'  b_enzyme_rate(conc, rate, state)
-#'
-b_enzyme_rate <-
+#'   bio_enzyme_rate(conc, rate, group = state)
+bio_enzyme_rate <-
   function(data,
            conc,
            rate,
-           ...,
+           group = NULL,
            min = 0) {
 
     # set minimum to 0
     model <- drc::MM.3(
       names = c("min", "Vmax", "Km"),
       fixed = c(min, NA, NA)
-      )
+    )
 
-    b_dose_resp(
-      .data = data,
+    bio_dose_resp(
+      data = data,
       .dose = {{ conc }},
       .resp = {{ rate }},
-      ... = ...,
+      .group = {{ group }},
       .model = model
     )
   }

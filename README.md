@@ -58,7 +58,7 @@ head(Puromycin)
 
 ``` r
 library(biochemr)
-df <- b_enzyme_rate(Puromycin, conc, rate, state)
+df <- bio_enzyme_rate(Puromycin, conc, rate, state)
 
 df
 #> # A tibble: 2 × 6
@@ -75,11 +75,11 @@ sample and a column the relevant data for each. The original data is in
 is inside `drmod` and the fitted curve (to draw the line) in `line` and
 the coefficients (such as *Vmax* and *Km*) in `coefs`.
 
-To extract relevant coefficients, use `b_coefs()`.
+To extract relevant coefficients, use `bio_coefs()`.
 
 ``` r
 df %>% 
-  b_coefs()
+  bio_coefs()
 #> # A tibble: 4 × 7
 #> # Groups:   state [2]
 #>   state     term  curve       estimate std.error statistic  p.value
@@ -97,13 +97,13 @@ functions.
 
 ``` r
 plt <- df %>% 
-  b_plot()
+  bio_plot()
 plt
 ```
 
 <img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />
 
-The `b_plot()` function just returns a `ggplot` object, so you can
+The `bio_plot()` function just returns a `ggplot` object, so you can
 continue customisation as you would otherwise.
 
 ``` r

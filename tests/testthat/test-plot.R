@@ -3,15 +3,18 @@ test_that("Plotting function.", {
     "test enzyme plot",
     fig = {
       DNase %>%
-        b_enzyme_rate(conc, density, Run) %>%
-        b_plot()
-    })
+        dplyr::group_by(Run) %>%
+        bio_enzyme_rate(conc, density) %>%
+        bio_plot()
+    }
+  )
   vdiffr::expect_doppelganger(
     "Coloured, no facet.",
     fig = {
       DNase %>%
-        b_enzyme_rate(conc, density, Run) %>%
-        b_plot(colour = Run, facet = FALSE)
-    })
-
+        dplyr::group_by(Run) %>%
+        bio_enzyme_rate(conc, density) %>%
+        bio_plot(colour = Run, facet = FALSE)
+    }
+  )
 })
