@@ -34,7 +34,6 @@ terms, also showing the calculated standard errors as errorbars.
 library(biochemr)
 
 DNase \%>\%
-  dplyr::group_by(Run) \%>\%
-  bio_binding(conc, density) \%>\%
+  bio_binding(conc, density, group = Run) \%>\%
   bio_plot_coefs(Run, term = "kd", colour = Run)
 }

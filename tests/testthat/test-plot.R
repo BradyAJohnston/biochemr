@@ -3,8 +3,7 @@ test_that("Plotting function.", {
     "test enzyme plot",
     fig = {
       DNase %>%
-        dplyr::group_by(Run) %>%
-        bio_enzyme_rate(conc, density) %>%
+        bio_enzyme_rate(conc, density, group = Run) %>%
         bio_plot()
     }
   )
@@ -12,8 +11,7 @@ test_that("Plotting function.", {
     "Coloured, no facet.",
     fig = {
       DNase %>%
-        dplyr::group_by(Run) %>%
-        bio_enzyme_rate(conc, density) %>%
+        bio_enzyme_rate(conc, density, group = Run) %>%
         bio_plot(colour = Run, facet = FALSE)
     }
   )

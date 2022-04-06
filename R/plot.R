@@ -90,12 +90,8 @@ bio_plot <- function(data,
     ) +
     ggplot2::scale_colour_discrete()
 
-  if (facet & length(group_vars) != 0) {
-    plt <- plt + ggplot2::facet_wrap(group_vars)
+    plt
   }
-
-  plt
-}
 
 #' Comparison Plot of Estimated Terms
 #'
@@ -118,8 +114,7 @@ bio_plot <- function(data,
 #' library(biochemr)
 #'
 #' DNase %>%
-#'   dplyr::group_by(Run) %>%
-#'   bio_binding(conc, density) %>%
+#'   bio_binding(conc, density, group = Run) %>%
 #'   bio_plot_coefs(Run, term = "kd", colour = Run)
 bio_plot_coefs <-
   function(data,
