@@ -20,8 +20,24 @@
 #'
 #' @examples
 #' # Fitting MM curves to the enzymatic data inside of datasets::Puromycin
-#' Puromycin %>%
-#'   bio_enzyme_rate(conc, rate, group = state)
+#' library(bicohemr)
+#' df <- Puromycin %>%
+#'   bio_enzyme_rate(conc, rate, state)
+#'
+#' # the result is a tibble with a column for the data, a column for the
+#' # calculated # model and a column for the relevant coefficients extracted from
+#' # the model
+#' df
+#'
+#' # you can extract the coefficient data using either `bio_coefs()` or
+#' # `unnest()` on the column
+#' bio_coefs(df)
+#' tidyr::unnest(df, coefs)
+#'
+#' # quick plot can be made for inspecing the results with `bio_plot()`
+#' df %>%
+#'   bio_plot()
+
 bio_enzyme_rate <-
   function(data,
            conc,
