@@ -90,6 +90,8 @@ bio_plot <- function(data,
     ) +
     ggplot2::scale_colour_discrete()
 
+    if (facet) plt <- plt + ggplot2::facet_wrap(group_vars)
+
     plt
   }
 
